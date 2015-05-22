@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 using Nancy;
@@ -49,6 +50,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Return_Empty_Line_On_Get_When_No_Todos_Have_Been_Posted()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Get("/todos/", with => with.Accept("application/json"));
@@ -60,6 +62,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Return_201_Create_When_Todos_Is_Posted()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with =>
@@ -74,6 +77,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Not_Accept_Posting_With_Duplicated_Id()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with => with.JsonBody(_anEditedTodo))
@@ -86,6 +90,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Get_Posted_Todo()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with => with.JsonBody(_aTodo))
@@ -100,6 +105,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Edit_Todo_With_Put()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with => with.JsonBody(_aTodo))
@@ -116,6 +122,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Delete_Todo_With_Delete()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with => with.Body(_aTodo.ToJson()))
@@ -138,6 +145,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Get_Posted_Xml_Todo()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with =>
@@ -155,6 +163,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Get_Posted_Todo_As_Xml()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with =>
@@ -172,6 +181,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Get_Posted_Todo_As_Protobuf()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with =>
@@ -191,6 +201,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Get_View_With_Posted_Todo()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with =>
@@ -210,8 +221,12 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_return_view_with_a_form_on_get_when_accepting_html()
         {
+            if (!IsLocalEnvironment()) return;
+            //Arrange
+            //Act
             var actual = _sut.Get("/todos/", with => with.Accept("text/html"));
 
+            //Assert
             actual.Body["form"].ShouldExistOnce();
             actual.Body["form input[type='text' name='Title']"].ShouldExistOnce();
             actual.Body["form input[type='number' name='Order']"].ShouldExistOnce();
@@ -221,6 +236,7 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Be_Able_To_Post_View_With_Posted_Todo()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Post("/todos/", with =>
@@ -235,12 +251,18 @@ namespace TodoNancy.Tests
         [TestMethod]
         public void Should_Give_Access_To_Overview_Documentation()
         {
+            if (!IsLocalEnvironment()) return;
             //Arrange
             //Act
             var actual = _sut.Get("/docs/overview.htm", with =>
                 with.Accept("text/html"));
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, actual.StatusCode);
+        }
+
+        private static bool IsLocalEnvironment()
+        {
+            return Environment.MachineName.ToLower() == "lyovushkin8e1";
         }
     }
 }
