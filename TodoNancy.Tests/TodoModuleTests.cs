@@ -19,6 +19,11 @@ namespace TodoNancy.Tests
         private readonly Todo _aTodo;
         private readonly Todo _anEditedTodo;
 
+        private static bool IsLocalEnvironment()
+        {
+            return Environment.MachineName.ToLower() == "lyovushkin8e1";
+        }
+
         public TodoModuleTests()
         {
             var connectionString = ConfigurationManager.AppSettings.Get("MONGOLAB_URI");
@@ -258,11 +263,6 @@ namespace TodoNancy.Tests
                 with.Accept("text/html"));
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, actual.StatusCode);
-        }
-
-        private static bool IsLocalEnvironment()
-        {
-            return Environment.MachineName.ToLower() == "lyovushkin8e1";
         }
     }
 }
