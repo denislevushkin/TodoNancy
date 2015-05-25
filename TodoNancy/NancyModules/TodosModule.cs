@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Nancy;
 using Nancy.ModelBinding;
+//using Nancy.Security;
 using Nancy.ViewEngines.Razor;
 using TodoNancy.Abstract;
 using TodoNancy.Model;
@@ -17,13 +19,18 @@ namespace TodoNancy.NancyModules
         public TodosModule(IDataStore todoStore)
             : base("todos")
         {
+            //this.RequiresAuthentication();
+            //this.RequiresHttps();
+            //this.RequiresClaims(AlistOfClaims);
+
             Get["/"] = _ => Negotiate
-                .WithModel(todoStore.GetAll())
+                .WithModel(todoStore.GetAll().Where(todo => todo.UserName == Context.CurrentUser.UserName).ToArray())
                 .WithView("Todos");
             //Get["/"] = _ => Response.AsJson(todoStore.GetAll());
             Post["/"] = _ =>
             {
                 var newTodo = this.Bind<Todo>();
+                newTodo.UserName = Context.CurrentUser.UserName;
                 if (newTodo.Id == 0)
                 {
                     newTodo.Id = todoStore.Count + 1;
@@ -41,7 +48,8 @@ namespace TodoNancy.NancyModules
             Put["/{id}"] = p =>
             {
                 var updatedTodo = this.Bind<Todo>();
-                if (!todoStore.TryUpdate(updatedTodo))
+                updatedTodo.UserName = Context.CurrentUser.UserName;
+                if (!todoStore.TryUpdate(updatedTodo, Context.CurrentUser.UserName))
                 {
                     return HttpStatusCode.NotFound;
                 }
@@ -49,7 +57,7 @@ namespace TodoNancy.NancyModules
             };
             Delete["/{id}"] = p =>
             {
-                return !todoStore.TryRemove(p.id)
+                return !todoStore.TryRemove(p.id, Context.CurrentUser.UserName)
                     ? HttpStatusCode.NotFound
                     : HttpStatusCode.OK;
             };

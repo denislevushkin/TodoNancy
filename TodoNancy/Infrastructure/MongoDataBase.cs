@@ -40,18 +40,16 @@ namespace TodoNancy.Infrastructure
             return true;
         }
 
-        public bool TryRemove(int id)
+        public bool TryRemove(int id, string userName)
         {
             return TodosModule.Store.ContainsKey(id) 
+                && TodosModule.Store[id].UserName == userName
                 && TodosModule.Store.Remove(id);
         }
 
-        public bool TryUpdate(Todo todo)
+        public bool TryUpdate(Todo todo, string userName)
         {
-            if (!TodosModule.Store.ContainsKey(todo.Id))
-            {
-                return false;
-            }
+            if (!TodosModule.Store.Values.Any(t => t.Id == todo.Id && t.UserName == todo.UserName)) return false;
             TodosModule.Store.Remove(todo.Id);
             TodosModule.Store.Add(todo.Id, todo);
             return true;

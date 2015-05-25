@@ -41,14 +41,16 @@ namespace TodoNancy.Tests
             {
                 Title = "Task 1",
                 Order = 0,
-                Completed = false
+                Completed = false,
+                UserName = "todoUser"
             };
             _anEditedTodo = new Todo()
             {
                 Id = 42,
                 Title = "Edited name",
                 Order = 0,
-                Completed = false
+                Completed = false,
+                UserName = "todoUser"
             };
         }
 

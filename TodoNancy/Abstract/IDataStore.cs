@@ -8,7 +8,7 @@ namespace TodoNancy.Abstract
         IEnumerable<Todo> GetAll();
         long Count { get; }
         bool TryAdd(Todo todo);
-        bool TryRemove(int id);
-        bool TryUpdate(Todo todo);
+        bool TryRemove(int id, string userName);
+        bool TryUpdate(Todo todo, string userName);
     }
 }
