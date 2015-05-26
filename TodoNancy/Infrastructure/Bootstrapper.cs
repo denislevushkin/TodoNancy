@@ -64,12 +64,21 @@ namespace TodoNancy.Infrastructure
             container.Register<IDataStore>(mongoDataStore);
 
         }
+
         protected override void ConfigureConventions(NancyConventions nancyConventions)
         {
             base.ConfigureConventions(nancyConventions);
             nancyConventions.StaticContentsConventions.Add(
                 StaticContentConventionBuilder.AddDirectory("/docs", "Docs")
                 );
+        }
+
+        protected override IRootPathProvider RootPathProvider
+        {
+            get
+            {
+                return new CustomRootPathProvider();
+            }
         }
     }
 }

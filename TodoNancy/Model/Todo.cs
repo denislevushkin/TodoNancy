@@ -1,4 +1,5 @@
-﻿using System.Web.Script.Serialization;
+﻿//using System.Web.Script.Serialization;
+using Nancy.Json;
 
 namespace TodoNancy.Model
 {

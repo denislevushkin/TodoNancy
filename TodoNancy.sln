@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoNancy", "TodoNancy\Todo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoNancy.Tests", "TodoNancy.Tests\TodoNancy.Tests.csproj", "{17F3CCF3-C07A-4F48-9E66-04E7A3746EED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoNancyAspNet", "TodoNancyAspNet\TodoNancyAspNet.csproj", "{6583E6F8-390A-4E07-906D-5B31190206DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoNancySelfHost", "TodoNancySelfHost\TodoNancySelfHost.csproj", "{6009A604-812F-41E0-B97D-14D34C3FD26A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{17F3CCF3-C07A-4F48-9E66-04E7A3746EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F3CCF3-C07A-4F48-9E66-04E7A3746EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F3CCF3-C07A-4F48-9E66-04E7A3746EED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6583E6F8-390A-4E07-906D-5B31190206DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6583E6F8-390A-4E07-906D-5B31190206DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6583E6F8-390A-4E07-906D-5B31190206DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6583E6F8-390A-4E07-906D-5B31190206DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6009A604-812F-41E0-B97D-14D34C3FD26A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6009A604-812F-41E0-B97D-14D34C3FD26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6009A604-812F-41E0-B97D-14D34C3FD26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6009A604-812F-41E0-B97D-14D34C3FD26A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
